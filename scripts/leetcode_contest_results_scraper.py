@@ -2,7 +2,6 @@ import asyncio
 from playwright.async_api import async_playwright
 import pandas as pd
 import re
-import re
 
 async def scrape_page(context, url, page_num):
     page = await context.new_page()
@@ -112,10 +111,10 @@ async def scrape_leetcode_rankings_async(base_url, total_pages, max_pages=None, 
     return all_results
 
 if __name__ == "__main__":
-    contest = "weekly-contest-443"
-    base_url = f"https://leetcode.com/contest/{contest}/ranking/{{page_no}}/?region=global_v2"
-    total_pages = 800
-    max_pages = 20
+    contest = "weekly-contest-443" # contest title
+    base_url = f"https://leetcode.com/contest/{contest}/ranking/{{page_no}}/?region=global_v2" # url; subject to change
+    total_pages = 800 # subject to change
+    max_pages = 20 # number of pages to be scraped
     concurrency = 10
 
     results = asyncio.run(
