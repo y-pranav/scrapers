@@ -8,7 +8,7 @@ import os
 dotenv.load_dotenv()
 
 login_URL = 'https://www.screener.in/login/'
-base_data_URL = 'https://www.screener.in/screen/raw/?sort=&order=&source_id=&query=Current+price+%3E+0'
+base_data_URL = 'https://www.screener.in/screen/raw/?sort=&order=&source_id=&query=Current+price+%3E+0&limit=50'
 
 form_data = {
     'username': os.getenv('SCREENER_USERNAME'),
@@ -64,7 +64,8 @@ def scrape_page(page_num, cookie_csrf_value, cookie_session_value):
     data = []
     for row in table_rows[1:]:
         cells = [td.text.strip() for td in row.find_all('td')]
-        data.append(cells)
+        if cells:
+            data.append(cells)
     
     return headers, data
 
@@ -87,7 +88,7 @@ def scrape_all_pages(total_pages):
     
     return headers, all_data
 
-total_pages = 5
+total_pages = 99
 headers, all_data = scrape_all_pages(total_pages)
 
 if headers and all_data:
